@@ -10,10 +10,17 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    const prices = client.service('prices') 
+    const prices = client.service('prices')
+    
+    this.setState({ price: {
+      "purchase_price": this.props.product.purchase_price,
+      "wholesale_price": this.props.product.wholesale_price,
+      "sale_price": this.props.product.sale_price
+    } });
 
     prices.on('created', price => {
       if (this.props.product._id === price.productId) {
+        this.setState({ price });
         this.props.product.purchase_price = price.purchase_price
         this.props.product.wholesale_price = price.wholesale_price
         this.props.product.sale_price = price.sale_price
@@ -31,9 +38,9 @@ class Product extends Component {
                   <span className="sent-date font-300">  -  {moment(product.createdAt).format('MMM Do, hh:mm:ss')}</span>
                 </a>
               </td>
-              <td className="message-content font-300">{product.purchase_price}</td>
-              <td className="message-content font-300">{product.wholesale_price}</td>
-              <td className="message-content font-300">{product.sale_price}</td>
+              <td className="message-content font-300">{this.state.price && this.state.price.purchase_price}</td>
+              <td className="message-content font-300">{this.state.price && this.state.price.wholesale_price}</td>
+              <td className="message-content font-300">{this.state.price && this.state.price.sale_price}</td>
             </tr>;
 
   }
