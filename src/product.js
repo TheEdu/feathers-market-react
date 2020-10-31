@@ -10,12 +10,13 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    const prices = client.service('prices')
+    const prices = client.service('prices') 
 
     prices.on('created', price => {
-      console.log(price);
-      if (this.props.product._id = price.productId) {
-        this.setState({ price });
+      if (this.props.product._id === price.productId) {
+        this.props.product.purchase_price = price.purchase_price
+        this.props.product.wholesale_price = price.wholesale_price
+        this.props.product.sale_price = price.sale_price
       }
     });
   }
@@ -23,15 +24,17 @@ class Product extends Component {
   render() {
     const { product } = this.props;
 
-    return <div className="message-wrapper">
-                <p className="message-header">
-                  <span className="username font-600">{product.name}</span>
+    return <tr className="message-wrapper">
+              <td className="message-header">
+                <a className="cursor" onClick={() => this.props.handleOpen(product)}>
+                  <span className="username font-600">{product.uid} - {product.name}</span>
                   <span className="sent-date font-300">  -  {moment(product.createdAt).format('MMM Do, hh:mm:ss')}</span>
-                </p>
-                <p className="message-content font-300">Precio de Adquisicion: {product.prices.data[0] ? product.prices.data[0].purchase_price : 0}</p>
-                <p className="message-content font-300">Precio Mayorista: {product.prices.data[0] ? product.prices.data[0].wholesale_price : 0}</p>
-                <p className="message-content font-300">Precio de Venta: {product.prices.data[0] ? product.prices.data[0].sale_price : 0}</p>
-              </div>;
+                </a>
+              </td>
+              <td className="message-content font-300">{product.purchase_price}</td>
+              <td className="message-content font-300">{product.wholesale_price}</td>
+              <td className="message-content font-300">{product.sale_price}</td>
+            </tr>;
 
   }
 }

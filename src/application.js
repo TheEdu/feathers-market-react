@@ -44,7 +44,6 @@ class Application extends Component {
       </main>;
     } else if(this.state.login) {
       return <Panel markets={this.state.markets} />
-      // return <Market products={this.state.products} markets={this.state.markets} />
     }
 
     return <Login />;
