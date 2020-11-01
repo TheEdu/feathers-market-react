@@ -40,11 +40,11 @@ export default class PriceModal extends Component {
             <div className="col-12 col-6-tablet push-3-tablet col-4-desktop push-4-desktop">
               <form className="form">
                 <fieldset>
-                  <label>purchase_price :</label>
+                  <label>purchase_price (old - {this.props.product && this.props.product.purchase_price}):</label>
                   <input className="block" type="number" id="purchase_price" name="purchase_price" placeholder="purchase_price" onChange={ev => this.updateField('purchase_price', ev)} />
-                  <label>wholesale_price :</label>
+                  <label>wholesale_price (old - {this.props.product && this.props.product.wholesale_price}):</label>
                   <input className="block" type="number" id="wholesale_price" name="wholesale_price" placeholder="wholesale_price" onChange={ev => this.updateField('wholesale_price', ev)} />
-                  <label>sale_price :</label>
+                  <label>sale_price (old - {this.props.product && this.props.product.sale_price}):</label>
                   <input className="block" type="number" id="sale_price" name="sale_price" placeholder="sale_price" onChange={ev => this.updateField('sale_price', ev)} />
                   </fieldset>
 
